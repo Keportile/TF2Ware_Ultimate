@@ -81,6 +81,9 @@ function OnStart()
 	accepted_text.append(hh + " " + mm)   // "hh mm"
 	accepted_text.append(h + m)           // "hm"
 	accepted_text.append(hh + mm)         // "hhmm"
+
+    // accept stuff like 600 for 06:00 PM or 18:00
+    accepted_text.append(h + mm)          // "hmm"
 	
 	// accept AM/PM ambiguity
 	local ahh = (hour + 12).tostring()
