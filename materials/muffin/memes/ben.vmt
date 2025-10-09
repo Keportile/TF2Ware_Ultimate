@@ -1,0 +1,16 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "muffin/memes/ben"
+	"$surfaceprop" "Glass"
+}
+
+"Proxies"
+
+{
+	"AnimatedTexture"
+	{
+		"animatedTextureVar"		"$basetexture"
+		"animatedTextureFrameNumVar"	"$frame"
+		"animatedTextureFrameRate"	"33"
+	}
+}
