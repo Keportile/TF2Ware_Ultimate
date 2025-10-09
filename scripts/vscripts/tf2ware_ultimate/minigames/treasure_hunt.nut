@@ -1,3 +1,5 @@
+printl("Minigame 'treasure_hunt' override in action!")
+
 treasures <-
 [
 	["beach", "Octopus", "octopus", "unusual_bubbles", "models/player/items/pyro/treasure_hat_oct.mdl",
@@ -31,7 +33,7 @@ minigame <- Ware_MinigameData
 	name           = "Treasure Hunt"
 	author         = ["TonyBaretta", "ficool2"]
 	description    = format("Find the %s!", treasure[1])
-	duration       = 25.0
+	duration       = treasure[2] == "octopus" ? 25.0 : 30.0
 	max_scale      = 1.0
 	music          = "undergroundbros"
 	location       = treasure[0]

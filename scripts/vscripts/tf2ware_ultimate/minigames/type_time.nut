@@ -1,3 +1,5 @@
+printl("Minigame 'type_time' override in action!")
+
 hour <- 0
 minute <- 0
 accepted_text <- []
@@ -8,7 +10,7 @@ minigame <- Ware_MinigameData
 	name           = "Say the Time"
 	author         = "ficool2"
 	description    = "Say the time!"
-	duration       = 7.0
+	duration       = 10.0
 	location       = "dirtsquare"
 	music          = "countdown"
 	start_freeze   = 0.5

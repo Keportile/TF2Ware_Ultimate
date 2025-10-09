@@ -1,9 +1,11 @@
+printl("Minigame 'dove' override in action!")
+
 minigame <- Ware_MinigameData
 ({
 	name           = "Dove Hunt"
 	author         = ["tilderain"]
-	description    = "Shoot 3 Doves!"
-	duration       = 18
+	description    = "Shoot 1 Dove!"
+	duration       = 10
 	end_delay      = 0.5
 	music          = "duckhunt"
 })
@@ -12,7 +14,7 @@ spawn_rate <- null
 
 bird_model <- "models/props_forest/dove.mdl"
 
-required_amount <- 3
+required_amount <- 1
 
 function OnPrecache()
 {

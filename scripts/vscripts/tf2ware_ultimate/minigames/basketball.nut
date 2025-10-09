@@ -1,10 +1,12 @@
+printl("Minigame 'basketball' override in action!")
+
 minigame <- Ware_MinigameData
 ({
 	name           = "Basketball"
 	author         =  ["TonyBaretta", "ficool2"]
 	description    = "Score a Goal!"
 	custom_overlay = "score_goal"
-	duration       = 7.0
+	duration       = 10.0
 	location       = "ballcourt"
 	music          = "march"
 	start_pass     = false
@@ -21,19 +23,19 @@ function OnPrecache()
 function OnStart()
 {
 	Ware_SetGlobalLoadout(TF_CLASS_DEMOMAN, "Grenade Launcher", { "fuse bonus" : 0.6 })
-	
+
 	foreach (player in Ware_MinigamePlayers)
 	{
 		// make grenades pass through
 		player.SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
 		SetPropInt(player, "m_takedamage", DAMAGE_NO)
 	}
-	
+
 	EntFire("boss4_door", "Unlock")
 	EntFire("boss4_door2", "Unlock")
 	EntFire("boss4_door", "Open")
 	EntFire("boss4_door2", "Open")
-	
+
 	for (local trigger; trigger = FindByName(trigger, "basketball_trigger");)
 	{
 		MarkForPurge(trigger)
@@ -47,7 +49,7 @@ function OnHoopTouch()
 {
 	local owner = GetPropEntity(activator, "m_hThrower")
 	if (owner)
-	{	
+	{
 		Ware_PlaySoundOnClient(owner, Ware_MinigameScope.hoop_sound)
 		Ware_PassPlayer(owner, true)
 	}
@@ -72,7 +74,7 @@ function OnEnd()
 	EntFire("boss4_door2", "Close")
  	EntFire("boss4_door", "Lock")
  	EntFire("boss4_door2", "Lock")
-	
+
 	for (local trigger; trigger = FindByName(trigger, "basketball_trigger");)
 		trigger.DisconnectOutput("OnStartTouch", "OnHoopTouch")
 }

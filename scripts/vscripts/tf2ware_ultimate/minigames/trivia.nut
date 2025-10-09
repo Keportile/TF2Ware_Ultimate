@@ -1,3 +1,5 @@
+printl("Minigame 'trivia' override in action!")
+
 // TODO hack: weapons are going invisible in firstperson, forcing a tp switch or suicide fixes it
 // players are forced into TP upon crossing the triggers, people who didn't are suicided
 minigame <- Ware_MinigameData
@@ -87,7 +89,12 @@ function OnStart()
 			string = "How many minigames have there been this round?"
 			correct_answer = Ware_MinigamesPlayed.tostring()
 			answers = FillArray(1, Ware_BossThreshold).map(@(value) value.tostring())
-		}
+		},
+        {
+            string = "What's BK's full name?"
+            correct_answer = "BK"
+            answers = ["BK", "BK"]
+        }
 		
 		// .
 		// .
@@ -102,19 +109,22 @@ function OnStart()
 
 	
 	question <- RandomElement(questions)
-	correct_choice <- RandomElement(choices)
+	correct_choice <- question.correct_answer == "BK" ? choices[1] : RandomElement(choices)
 	
 	// show the question
 	Ware_ShowMinigameText(null, question.string)
 	Ware_ChatPrint(null, "{color}QUESTION: {color}{str}", COLOR_GREEN, TF_COLOR_DEFAULT, question.string)
 	
 	// remove the correct answer from the wrong answers
-	local answers = question.answers
-	local idx = answers.find(question.correct_answer)
-	while (idx != null){
-		answers.remove(idx)
-		idx = answers.find(question.correct_answer)
-	}
+    if (question.correct_answer != "BK")
+    {
+        local answers = question.answers
+        local idx = answers.find(question.correct_answer)
+        while (idx != null){
+            answers.remove(idx)
+            idx = answers.find(question.correct_answer)
+        }
+    }
 	
 	// answers
 	foreach(choice in choices)

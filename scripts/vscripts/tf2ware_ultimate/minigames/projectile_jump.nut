@@ -1,16 +1,14 @@
+printl("Minigame 'projectile_jump' override in action!")
+
 local MODE_ROCKET       = 0
 local MODE_STICKY       = 1
-local MODE_SENTRY       = 2
-local MODE_FLARE        = 3
-local MODE_SHORTCIRCUIT = 4
+local MODE_SHORTCIRCUIT = 2
 
-mode_infos <- 
+mode_infos <-
 {
-	[MODE_ROCKET]       = [ "Rocket jump!",       "rocket_jump",        600.0],
-	[MODE_STICKY]       = [ "Sticky jump!",       "sticky_jump",        600.0],
-	[MODE_SENTRY]       = [ "Sentry jump!",       "sentry_jump",        600.0],
-	[MODE_FLARE]        = [ "Flare jump!",        "flare_jump",         450.0],
-	[MODE_SHORTCIRCUIT] = [ "Short Circuit jump!", "shortcircuit_jump", 600.0],
+	[MODE_ROCKET]       = [ "Rocket jump!",       "rocket_jump",        384.0],
+	[MODE_STICKY]       = [ "Sticky jump!",       "sticky_jump",        384.0],
+	[MODE_SHORTCIRCUIT] = [ "Short Circuit jump!", "shortcircuit_jump", 384.0],
 }
 
 minigame <- Ware_MinigameData
@@ -19,8 +17,8 @@ minigame <- Ware_MinigameData
 	author         = ["Mecha the Slag", "TonyBaretta", "ficool2"]
 	modes          = mode_infos.len()
 	description    = mode_infos[Ware_MinigameMode][0]
-	duration       = Ware_MinigameMode == MODE_SENTRY ? 6.0 : 4.0
-	end_delay      = Ware_MinigameMode == MODE_SENTRY ? 0.0 : 1.0
+	duration       = 4.0
+	end_delay      = 1.0
 	music          = "goodtimes"
 	custom_overlay = mode_infos[Ware_MinigameMode][1]
 	allow_damage   = false
@@ -53,19 +51,6 @@ function OnStart()
 		player_class = TF_CLASS_DEMOMAN
 		weapon = "Stickybomb Launcher"
 	}
-	else if (Ware_MinigameMode == MODE_SENTRY)
-	{
-		player_class = TF_CLASS_ENGINEER
-		weapon = [ "Construction PDA", "Toolbox", "Wrangler"]
-		Ware_SetGlobalAttribute("build rate bonus", 0, -1)
-		foreach (player in Ware_MinigamePlayers)
-			Ware_GetPlayerMiniData(player).took_dmgtype <- 0
-	}
-	else if (Ware_MinigameMode == MODE_FLARE)
-	{
-		player_class = TF_CLASS_PYRO
-		weapon = "Detonator"
-	}
 	else if (Ware_MinigameMode == MODE_SHORTCIRCUIT)
 	{
 		player_class = TF_CLASS_ENGINEER
@@ -82,7 +67,7 @@ function OnStart()
 
 function OnUpdate()
 {
-	local velocity = mode_infos[Ware_MinigameMode][2]
+	local height = mode_infos[Ware_MinigameMode][2]
 	foreach (player in Ware_MinigamePlayers)
 	{
 		if (!player.IsAlive())
@@ -90,7 +75,7 @@ function OnUpdate()
 		if (player.GetAbsVelocity().Length() > velocity && (Ware_GetPlayerMiniData(player).self_damage || Ware_MinigameMode == MODE_SHORTCIRCUIT)) // TODO: see shortcircuit ontakedamage
 			Ware_PassPlayer(player, true)
 	}
-	
+
 	if (Ware_MinigameMode == MODE_SHORTCIRCUIT)
 	{
 		local dead_orbs = {}
@@ -101,35 +86,35 @@ function OnUpdate()
 			else
 				dead_orbs[orb] <- data
 		}
-		
+
 		for (local orb; orb = Entities.FindByClassname(orb, "tf_projectile_mechanicalarmorb");)
 		{
 			if (!(orb in orbs) && !orb.IsEFlagSet(EFL_KILLME))
 				orbs[orb] <- { origin = orb.GetOrigin(), owner = orb.GetOwner() }
 		}
-		
+
 		foreach (orb, data in dead_orbs)
 		{
 			delete orbs[orb]
-			
+
 			local player = data.owner
 			local origin = data.origin
-			
+
 			local radius = 100.0
-			
+
 			// copied from Ware_RadiusDamagePlayers
 			local dist = VectorDistance(player.GetOrigin(), origin)
 			if (dist > radius)
 				continue
-			
+
 			dist += DIST_EPSILON
 			local falloff = 1.0 - dist / radius
 			if (falloff <= 0.0)
 				continue
-			
+
 			local dir = player.EyeAngles().Forward()
 			dir.Norm()
-			
+
 			local dot = dir.Dot(Vector(0, 0, -1.0))
 			if (dot > 0.707) // cos(45)
 				player.SetAbsVelocity(player.GetAbsVelocity() - dir * 2000.0 * dot * falloff)
@@ -139,40 +124,9 @@ function OnUpdate()
 
 function OnEnd()
 {
-	if (Ware_MinigameMode == MODE_SENTRY)
-	{
-		foreach (player in Ware_MinigamePlayers)
-		{
-			local dmgtype = Ware_GetPlayerMiniData(player).took_dmgtype
-			// bonus point if player passed by bullet knockback only
-			if (!(dmgtype & DMG_BLAST) && (dmgtype & DMG_BULLET) && Ware_IsPlayerPassed(player))
-				Ware_GiveBonusPoints(player)
-		}
-	}
 }
 
-if (Ware_MinigameMode == MODE_SENTRY)
-{
-	function OnTakeDamage(params)
-	{
-		CheckSelfDamage(params)
-		if (params.const_entity.IsPlayer())
-		{
-			local minidata = Ware_GetPlayerMiniData(params.const_entity)
-			minidata.took_dmgtype = minidata.took_dmgtype | params.damage_type
-		}
-	}
-	
-	function OnGameEvent_player_builtobject(params)
-	{
-		local building = EntIndexToHScript(params.index)
-		if (!building)
-			return
-			
-		SetPropInt(building, "m_nDefaultUpgradeLevel", 2)
-	}	
-}
-else if (Ware_MinigameMode == MODE_SHORTCIRCUIT)
+if (Ware_MinigameMode == MODE_SHORTCIRCUIT)
 {
 	function OnTakeDamage(params)
 	{
@@ -180,21 +134,5 @@ else if (Ware_MinigameMode == MODE_SHORTCIRCUIT)
 		local weapon = params.weapon
 		if (weapon && weapon.GetName() == "tf_weapon_mechanical_arm")
 			params.damage = 0.0
-	}
-}
-else
-{
-	function OnTakeDamage(params)
-	{
-		CheckSelfDamage(params)
-	}
-}
-
-function CheckSelfDamage(params) // this way of organising this function is jank
-{
-	local victim = params.const_entity
-	if(victim == params.attacker && Ware_MinigamePlayers.find(victim) != null)
-	{
-		Ware_GetPlayerMiniData(victim).self_damage = true
 	}
 }
