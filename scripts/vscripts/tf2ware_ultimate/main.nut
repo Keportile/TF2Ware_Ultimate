@@ -1,5 +1,7 @@
 // by ficool2 and pokemonpasta
 
+printl("main.nut override!!")
+
 Ware_LinkPlugin()
 
 // force a game restart if an error occurs while inside code marked as "critical"
@@ -761,8 +763,11 @@ function Ware_ShowCredits(player, full)
 	if (full)
 	{
 		Ware_ChatPrint(player, 
-			"{color}TF2Ware{color} Ultimate{color} by ficool2 and pokemonPasta, based on {color}TF2Ware Universe{color} by SLAG.TF, {color}MicroTF2{color} by Gemidyne and {color}TF2Ware v2{color} by TonyBaretta. See console for all credits.", 
+			"{color}TF2Ware{color} Ultimate{color} by ficool2 and pokemonPasta, based on {color}TF2Ware Universe{color} by SLAG.TF, {color}MicroTF2{color} by Gemidyne and {color}TF2Ware v2{color} by TonyBaretta.", 
 			COLOR_DARKBLUE, COLOR_LIGHTRED, TF_COLOR_DEFAULT, COLOR_GREEN, TF_COLOR_DEFAULT, COLOR_GREEN, TF_COLOR_DEFAULT, COLOR_GREEN, TF_COLOR_DEFAULT)
+
+		Ware_ChatPrint(player,
+			"Extra mods by {color}Exortile{color}. See console for all credits.", COLOR_RED, TF_COLOR_DEFAULT)
 		
 		ClientPrint(player, HUD_PRINTCONSOLE, "TF2Ware Ultimate Contributors:")
 		

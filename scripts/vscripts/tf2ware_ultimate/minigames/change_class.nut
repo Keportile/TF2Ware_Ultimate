@@ -1,8 +1,10 @@
+printl("Minigame 'change_class' override in action!")
+
 minigame <- Ware_MinigameData
 ({
 	name           = "Change Class"
 	author         = ["Gemidyne", "pokemonPasta"]
-	duration       = 4.0
+	duration       = 5.0
 	end_delay      = 0.5
 	music          = "settingthescene"
 	suicide_on_end = true

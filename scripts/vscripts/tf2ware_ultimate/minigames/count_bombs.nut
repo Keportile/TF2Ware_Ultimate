@@ -1,3 +1,5 @@
+printl("Minigame 'count_bombs' override in action!")
+
 minigame <- Ware_MinigameData
 ({
 	name           = "Count Bombs"
@@ -22,7 +24,7 @@ function OnPrecache()
 
 function OnStart()
 {
-	count = RandomInt(6, 10)
+	count = RandomInt(6, 15)
 	
 	for (local i = 0; i < count; i++)
 	{

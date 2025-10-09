@@ -1,9 +1,11 @@
+printl("Minigame 'hoop' override in action!")
+
 minigame <- Ware_MinigameData
 ({
 	name           = "Hoop"
 	author         = "ficool2"
 	description    = "Jump through the hoops!"
-	duration       = 11.0
+	duration       = 15.0
 	max_scale      = 1.0
 	location       = "dirtsquare"
 	music          = "challenge"

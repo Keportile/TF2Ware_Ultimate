@@ -1,7 +1,11 @@
+printl("dev.nut override!!")
+
 DEVELOPER_STEAMID3 <-
 {
 	"[U:1:53275741]"  : 1 // ficool2
 	"[U:1:111328277]" : 1 // pokemonPasta
+    "[U:1:383462399]" : 1 // exortile
+    "[U:1:126562038]" : 1 // moffin
 }
 
 function Ware_DevCommandTitle(player)

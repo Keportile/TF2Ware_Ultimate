@@ -1,9 +1,11 @@
+printl("Minigame 'type_word' override in action!")
+
 minigame <- Ware_MinigameData
 ({
 	name            = "Say the Word"
 	author          = ["Gemidyne", "ficool2"]
 	description     = "Say the word below!"
-	duration        = 4.0
+	duration        = 5.0
 	end_delay       = 0.5
 	music           = "getready"
 	custom_overlay2 = "../chalkboard"
@@ -12,31 +14,13 @@ minigame <- Ware_MinigameData
 
 words <-
 [
-	"Heavy"
-	"Scout"
 	"Jarate"
-	"Wrench"
-	"Spy"
-	"Soldier"
-	"Medic"
-	"Sniper"
 	"Sasha"
 	"Engy"
 	"Saxton"
 	"Sandman"
-	"Pyro"
-	"Demoman"
-	"Engineer"
-	"Bat"
-	"Bear"
-	"Fists"
-	"White"
 	"Wario"
 	"Valve"
-	"Black"
-	"Yellow"
-	"Green"
-	"Blue"
 	"Flowey" // :)
 	"Mann Co"
 	"Sentry"
@@ -45,31 +29,21 @@ words <-
 	"Uber"
 	"Cloak"
 	"Sandvich"
-	"Sandwich"
 	"Bonk"
 	"Hale"
-	"Crate"
-	"Key"
 	"Taunt"
 	"Spycrab"
 	"Crits"
 	"Payload"
 	"Capture"
-	"Arena"
 	"Comics"
-	"Unusual"
-	"Strange"
 	"Gaben"
 	"Steam"
 	"Scrap"
 	"Sheen"
-	"Point"
-	"Tank"
 	"Sapper"
 	"Conga"
 	"Yeti"
-	"Intel"
-	"Contract"
 	"Aussie"
 	"Earbud"
 	"Disguise"
@@ -79,27 +53,16 @@ words <-
 	"Granary"
 	"Gravelpit"
 	"Hydro"
-	"Well"
 	"Krampus"
 	"Phlog"
 	"Prophunt"
 	"Smash"
 	"TF2Ware"
 	"Redsun"
-	"Frog"
-	"Meow"
-	"Cat"
-	"Skull"
-	"Cookie"
-	"Turtle"
 	"VScript"
-	"Squirrel"
-	"Pawn"
-	"Inspect"
 	"Crash"
 	"Raiden"
 	"Freaky"
-	"Banana"
 	"Hawk"
 	"Tuah"
 	
@@ -108,6 +71,59 @@ words <-
 	"Shahanshah"
 	// I'm so sorry
 	"Claidheamh Mor"
+
+    // I am also very sorry
+    "Pneumonoultramicroscopicsilicovolcanoconiosis"
+
+    // peak
+    "Bruhg"
+    "Bruhg Bunkerg"
+    "Pizza"
+    "BK"
+    "Burger King"
+    "Waffle"
+    "Anthrax"
+    "Blahaj"
+    "Muffin"
+    "Mumfin"
+    "Garage Door"
+    "SCP-173"
+    "Microwave"
+    "Cringe Detected"
+    "Gamer Detected"
+    "Anti Cringe"
+    "Cringe Inheritor"
+    "Hello?"
+    "500 Cigarettes"
+    "Shawty"
+    "Mr. Saturn"
+    "Planet"
+    "Daniel"
+    "Ad Break"
+    "Ad Free Music"
+    "Kidney Stone"
+    "Cobblestone Generator"
+    "Die Nerd"
+    "Cockroach"
+    "Big Chungus"
+    "Kazditi"
+    "Exortile"
+    "Exortle"
+    "Floortile"
+    "Exorcism"
+    "Penguin"
+    "DeathOf4Penguin"
+    "Dreggoon"
+    "Carbon"
+    "Geetz"
+    "Monster"
+    "Swag"
+    "Spyder"
+    "Soppy"
+    "Itov"
+    "ProjecTechAce"
+    "Squidward Community College"
+    "Embassy"
 ]
 
 first <- true
@@ -115,7 +131,7 @@ word <- null
 
 function OnStart()
 {
-	word = RandomElement(words)
+    word = RandomElement(words)
 	// these spaces are to prevent localization
 	Ware_ShowMinigameText(null, format(" %s ", word))
 	word = word.tolower()

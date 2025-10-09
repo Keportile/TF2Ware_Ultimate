@@ -1,9 +1,11 @@
+printl("Minigame 'destroy_barrels' override in action!")
+
 minigame <- Ware_MinigameData
 ({
 	name          = "Explosive Barrels"
 	author		  = ["ficool2", "tilderain"]
 	description   = "Carefully destroy every explosive barrel!"
-	duration      = 6.0
+	duration      = 9.0
 	music         = "hardsteer"
 	allow_damage  = true
 	fail_on_death = true
