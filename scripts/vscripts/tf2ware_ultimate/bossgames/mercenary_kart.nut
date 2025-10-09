@@ -25,6 +25,8 @@ minigame <- Ware_MinigameData
 	}
 })
 
+sky_name <- ""
+
 kart_base_offset    <- Vector(0, 0, 18)
 kart_mins           <- Vector(-32, -34, -kart_base_offset.z)
 kart_maxs           <- Vector(60, 34, 16)
@@ -339,6 +341,9 @@ function OnTeleport(players)
 
 function OnStart()
 {
+	sky_name = Convars.GetStr("sv_skyname")
+	SetSkyboxTexture("black_sky")
+
 	local keyframe = intro_camera_keyframes[0][0]
 	local camera = Ware_SpawnEntity("point_viewcontrol",
 	{
@@ -822,6 +827,7 @@ function OnCheckEnd()
 
 function OnCleanup()
 {
+	SetSkyboxTexture(sky_name)
 	ToggleMusic(false)
 
 	foreach (player in Ware_MinigamePlayers)
