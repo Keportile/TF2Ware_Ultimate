@@ -1,0 +1,15 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "muffin/memes/flyingcat"
+	
+	"Proxies"
+
+	{
+		"AnimatedTexture"
+		{
+			"animatedTextureVar"		"$basetexture"
+			"animatedTextureFrameNumVar"	"$frame"
+			"animatedTextureFrameRate"	"11"
+		}
+	}
+}

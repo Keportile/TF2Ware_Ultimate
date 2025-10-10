@@ -1,0 +1,15 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "muffin/memes/vape"
+	
+	"Proxies"
+
+	{
+		"AnimatedTexture"
+		{
+			"animatedTextureVar"		"$basetexture"
+			"animatedTextureFrameNumVar"	"$frame"
+			"animatedTextureFrameRate"	"10"
+		}
+	}
+}
