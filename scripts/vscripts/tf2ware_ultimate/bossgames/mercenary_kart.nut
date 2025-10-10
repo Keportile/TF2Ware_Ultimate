@@ -676,6 +676,7 @@ function RaceResults()
 	foreach (player in Ware_MinigamePlayers)
 		player.ForceRespawn()
 		
+    SetSkyboxTexture(sky_name)
 	local result = RaceShowResult()
 	Ware_CreateTimer(function()
 	{
@@ -827,7 +828,6 @@ function OnCheckEnd()
 
 function OnCleanup()
 {
-	SetSkyboxTexture(sky_name)
 	ToggleMusic(false)
 
 	foreach (player in Ware_MinigamePlayers)
