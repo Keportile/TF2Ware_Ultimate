@@ -838,3 +838,15 @@ Ware_Location.wega_challenge <-
 		Ware_TeleportPlayersRow(players, start, ang_zero, 192, 32, 32)
 	}
 }
+
+Ware_Location.meme_hall <-
+{
+    center = Vector(6656, 12352, -9819)
+    heavy_spawn = Vector(7104, 12352, -9819)
+    piss_spawn = Vector(6208, 12352, -9819)
+    radius = 80
+    Teleport = function(players)
+    {
+		Ware_TeleportPlayersCircle(players, center, radius)
+    }
+}
