@@ -9,6 +9,8 @@ minigame <- Ware_MinigameData
 	start_pass  = true
 })
 
+MP_CONCEPT_TAUNT_LAUGH <- 92
+
 function OnTeleport(players)
 {
     local heavy_loc = Ware_MinigameLocation.heavy_spawn
@@ -22,4 +24,14 @@ function OnTeleport(players)
         local rot = i % 2 == 0 ? heavy_rot : piss_rot
         Ware_TeleportPlayer(players[i], loc, rot, vec3_zero)
     }
+}
+
+function OnStart()
+{
+    Ware_CreateTimer(function() {
+        foreach (player in Ware_MinigamePlayers)
+        {
+            player.Taunt(TAUNT_MISC_ITEM, MP_CONCEPT_TAUNT_LAUGH)
+        }
+    }, 0.5)
 }
