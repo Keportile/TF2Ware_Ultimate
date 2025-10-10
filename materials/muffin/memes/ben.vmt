@@ -2,15 +2,15 @@
 {
 	"$basetexture" "muffin/memes/ben"
 	"$surfaceprop" "Glass"
-}
+	
+	"Proxies"
 
-"Proxies"
-
-{
-	"AnimatedTexture"
 	{
-		"animatedTextureVar"		"$basetexture"
-		"animatedTextureFrameNumVar"	"$frame"
-		"animatedTextureFrameRate"	"33"
+		"AnimatedTexture"
+		{
+			"animatedTextureVar"		"$basetexture"
+			"animatedTextureFrameNumVar"	"$frame"
+			"animatedTextureFrameRate"	"33"
+		}
 	}
 }
