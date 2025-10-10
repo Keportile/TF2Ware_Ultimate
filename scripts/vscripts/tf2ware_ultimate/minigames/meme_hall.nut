@@ -11,6 +11,19 @@ minigame <- Ware_MinigameData
 
 MP_CONCEPT_TAUNT_LAUGH <- 92
 
+class_list <-
+[
+    TF_CLASS_SCOUT,
+    TF_CLASS_SNIPER,
+    TF_CLASS_SOLDIER,
+    TF_CLASS_DEMOMAN,
+    TF_CLASS_MEDIC,
+    TF_CLASS_HEAVYWEAPONS,
+    TF_CLASS_PYRO,
+    TF_CLASS_SPY,
+    TF_CLASS_ENGINEER,
+]
+
 function OnTeleport(players)
 {
     local heavy_loc = Ware_MinigameLocation.heavy_spawn
@@ -28,9 +41,17 @@ function OnTeleport(players)
 
 function OnStart()
 {
+    foreach (player in Ware_MinigamePlayers)
+    {
+        Ware_SetPlayerLoadout(player, RandomElement(class_list))
+    }
+
+	Ware_SetGlobalAttribute("no_jump", 1, 1)
     Ware_CreateTimer(function() {
         foreach (player in Ware_MinigamePlayers)
         {
+            player.StopTaunt(true) // both are needed to fully clear the taunt
+            player.RemoveCond(TF_COND_TAUNTING)
             player.Taunt(TAUNT_MISC_ITEM, MP_CONCEPT_TAUNT_LAUGH)
         }
     }, 0.5)
