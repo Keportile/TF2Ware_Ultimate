@@ -309,6 +309,11 @@ Ware_DevCommands <-
 			Ware_ChatPrint(player, "Missing required scale parameter")
 		}
 	}
+    "giveweapon" : function(player, text)
+    {
+        Ware_ChatPrint(player, "Giving the '{str}' weapon", text)
+        Ware_GivePlayerWeapon(player, text)
+    }
 	"help" : function(player, text)
 	{
 		local cmds = []
