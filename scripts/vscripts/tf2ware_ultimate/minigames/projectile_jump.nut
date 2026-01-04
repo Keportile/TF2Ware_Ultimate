@@ -6,9 +6,9 @@ local MODE_SHORTCIRCUIT = 2
 
 mode_infos <-
 {
-	[MODE_ROCKET]       = [ "Rocket jump!",       "rocket_jump",        384.0],
-	[MODE_STICKY]       = [ "Sticky jump!",       "sticky_jump",        384.0],
-	[MODE_SHORTCIRCUIT] = [ "Short Circuit jump!", "shortcircuit_jump", 384.0],
+	[MODE_ROCKET]       = ["Rocket jump!",        "rocket_jump",       600.0],
+	[MODE_STICKY]       = ["Sticky jump!",        "sticky_jump",       600.0],
+	[MODE_SHORTCIRCUIT] = ["Short Circuit jump!", "shortcircuit_jump", 600.0],
 }
 
 minigame <- Ware_MinigameData
@@ -67,7 +67,7 @@ function OnStart()
 
 function OnUpdate()
 {
-	local height = mode_infos[Ware_MinigameMode][2]
+	local velocity = mode_infos[Ware_MinigameMode][2]
 	foreach (player in Ware_MinigamePlayers)
 	{
 		if (!player.IsAlive())
@@ -134,5 +134,21 @@ if (Ware_MinigameMode == MODE_SHORTCIRCUIT)
 		local weapon = params.weapon
 		if (weapon && weapon.GetName() == "tf_weapon_mechanical_arm")
 			params.damage = 0.0
+	}
+}
+else
+{
+    function OnTakeDamage(params)
+	{
+		CheckSelfDamage(params)
+	}
+}
+
+function CheckSelfDamage(params) // this way of organising this function is jank
+{
+	local victim = params.const_entity
+	if(victim == params.attacker && Ware_MinigamePlayers.find(victim) != null)
+	{
+		Ware_GetPlayerMiniData(victim).self_damage = true
 	}
 }
